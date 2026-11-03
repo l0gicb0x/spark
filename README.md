@@ -10,7 +10,7 @@ The Phase 1 implementation is committed locally as `f318bae` (`Build SPARK Phase
 
 **Still to verify manually:** full create/replace/delete behavior with the real Windows Credential Manager; successful Gemini test using a currently supported model; invalid-key and offline outcomes against the service; actual tray menu Show/Settings/Quit behavior; second-process window activation; corrupt-settings recovery notice in the running app; and a clean app shutdown. Automated tests cover mocked provider outcomes, settings recovery, keyring operations with a mock, Qt shell behaviors, and single-instance socket detection.
 
-Use the verification checklist at the end of [the Phase 1 progress review prompt](docs/PHASE_1_PROGRESS_REVIEW_PROMPT.md) to complete those checks. The full approved implementation prompt is preserved in [Project SPARK Phase 1 prompt](docs/PROJECT_SPARK_PHASE_1_PROMPT.md).
+See the [How Much Is Done folder](How%20Much%20Is%20Done/README.md) for the detailed completion state and manual checklist. The full approved prompt is in the [Project Prompt folder](Project%20Prompt/PROJECT_SPARK_PHASE_1_PROMPT.md).
 
 ## Requirements
 
@@ -53,5 +53,5 @@ See [Architecture](docs/ARCHITECTURE.md), [Roadmap](docs/ROADMAP.md), and [Phase
 
 ## Saved prompts
 
-- [Full Phase 1 implementation prompt](docs/PROJECT_SPARK_PHASE_1_PROMPT.md)
-- [Prompt to review completion and remaining work](docs/PHASE_1_PROGRESS_REVIEW_PROMPT.md)
+- [Full Phase 1 implementation prompt](Project%20Prompt/PROJECT_SPARK_PHASE_1_PROMPT.md)
+- [Progress review prompt](How%20Much%20Is%20Done/PROGRESS_REVIEW_PROMPT.md)

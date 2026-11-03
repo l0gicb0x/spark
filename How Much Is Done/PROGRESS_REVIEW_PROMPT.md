@@ -4,7 +4,7 @@ Copy and use this prompt when you want a fresh, evidence-based progress report. 
 
 ---
 
-Review the current Project SPARK repository against `docs/PROJECT_SPARK_PHASE_1_PROMPT.md`, especially its Phase 1 deliverables and acceptance criteria.
+Review the current Project SPARK repository against `Project Prompt/PROJECT_SPARK_PHASE_1_PROMPT.md`, especially its Phase 1 deliverables and acceptance criteria.
 
 Do not modify files, run a live Gemini request, read or print any API key, write to Windows Credential Manager, start Phase 2, or create another commit. Inspect the repository, its tests, Git status/history, and available command output. If you need to verify behavior, use only offline tests and non-secret checks.
 
