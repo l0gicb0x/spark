@@ -4,9 +4,9 @@ SPARK is a text-first Windows desktop assistant foundation. Phase 1 provides a Q
 
 ## Phase 1 status
 
-The Phase 1 implementation and local/provider verification are complete. The latest hardening adds transient Gemini-service classification and tray activation coverage. **VERIFIED:** the full test run reported `33 passed in 1.74s`; Ruff reported `All checks passed!`. The available interpreter is Python 3.13.4, so Python 3.12 runtime verification remains outstanding.
+The Phase 1 implementation and follow-up hardening are committed and pushed to GitHub. **VERIFIED:** the latest full test run reported `33 passed in 2.89s`; Ruff reported `All checks passed!`. The available interpreter is Python 3.13.4, so exact Python 3.12 runtime verification remains outstanding.
 
-**VERIFIED:** the app window started on Windows and displayed the first-run welcome. The `/status` command displayed the version, local data paths, key status and model status. One live Gemini request returned HTTP 400 `INVALID_ARGUMENT` with “unexpected model name format”; the model name should be checked in Settings. The request log contained no API-key text.
+**VERIFIED:** the app window started on Windows and displayed the first-run welcome. The `/status` command displayed the version, local data paths, key status and model status. A current supported model returned a successful Gemini connection test, and the request log contained no API-key text.
 
 **Still to verify on a visible desktop:** rendered tray/menu interaction, visible second-process window activation, and the rendered corrupt-settings recovery dialog. Credential Manager CRUD, secret-file absence, live Gemini success, invalid-key/offline provider outcomes, settings recovery behavior, and clean shutdown have been exercised and recorded in [How Much Is Done/README.md](How%20Much%20Is%20Done/README.md).
 

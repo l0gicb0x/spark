@@ -9,17 +9,17 @@ I’m not assigning a percentage: the remaining items are acceptance checks that
 ## Verified
 
 - **VERIFIED — Project and implementation:** the Phase 1 source tree, pinned package configuration, settings, logging, keyring wrapper, channel interfaces, local commands, Qt window, tray code, Gemini connection test, and Phase 1 docs exist in the repository.
-- **VERIFIED — Automated tests (historical baseline):** the pre-follow-up run reported `32 passed in 10.81s`; the current post-fix result is recorded below with an external pytest base and cache directory.
+- **VERIFIED — Automated tests:** the latest full result is recorded below with an external pytest base and cache directory.
 - **VERIFIED — Lint:** Ruff reported `All checks passed!`.
 - **VERIFIED — GUI observation:** the app window opened on Windows, showed the first-run welcome, and `/status` displayed the version, data paths, key status, and model status.
-- **VERIFIED — Gemini error response:** one live request returned HTTP 400 `INVALID_ARGUMENT` with “unexpected model name format”. The app log did not contain API-key text. Check the configured model name before another connection test.
+- **VERIFIED — Gemini connection behavior:** the prior model-format failure was resolved by configuring a currently supported model; the live success and categorized failure outcomes are recorded in the 2026-11-04 update.
 - **VERIFIED — Scope:** the source and test directories contain no speech/audio implementation. Phase 2 has not started.
-- **VERIFIED — Git history:** implementation commit `f318bae` and documentation commit `d1ce6f6` exist locally. The provider fix, regression test, and documentation updates listed below are currently uncommitted working-tree changes.
+- **VERIFIED — Git history:** Phase 1 implementation and follow-up hardening are committed and pushed to `origin/master`.
 
 ## Verification update — 2026-11-03
 
 - **VERIFIED — Provider fix:** `src/spark/providers/gemini.py` now maps the common Gemini HTTP 400 message `API key not valid` to the distinct invalid-key response. `tests/test_provider.py` covers this case.
-- **VERIFIED — Automated tests after the fix:** final command used an external temporary base and cache directory: `$env:QT_QPA_PLATFORM='offscreen'; .\.venv\Scripts\python.exe -m pytest -q --basetemp $env:TEMP\spark-checks-final\basetemp -o "cache_dir=$env:TEMP\spark-checks-final\cache"`; output: `32 passed in 2.48s`.
+- **VERIFIED — Automated tests after the fix:** the earlier post-fix command used an external temporary base and cache directory and reported `32 passed in 2.48s`.
 - **VERIFIED — Lint after the fix:** command `.\.venv\Scripts\ruff.exe check .`; output: `All checks passed!`
 - **VERIFIED — Runtime process check:** starting `python -m spark` in an isolated `%LOCALAPPDATA%` folder and starting it a second time resulted in the second process exiting with code `0` while the first remained alive. The first window being visibly raised was not observable in this non-interactive session.
 - **VERIFIED — Qt shell inspection:** offscreen inspection found the `Show`, `Settings`, and `Quit` tray actions and non-null generated window/tray icons. This does not replace a visible tray test.
@@ -36,9 +36,9 @@ I’m not assigning a percentage: the remaining items are acceptance checks that
 - **VERIFIED — Transient service classification:** HTTP 503 high-demand responses now return `Gemini is temporarily unavailable. Try again later.`
 - **VERIFIED — Tray action behavior:** Qt regression coverage now triggers Show, Settings, and Quit actions and verifies their callbacks; tray activation now raises and activates the window for both single-click and double-click activation reasons.
 - **VERIFIED — Clean shutdown path:** an actual offline `spark.app.run()` lifecycle exited with code `0` after invoking the application quit callback and wrote `SPARK shutting down` to the log.
-- **VERIFIED — Final automated checks:** targeted provider/UI command reported `14 passed in 2.30s`; the full command with external temporary directories reported `33 passed in 1.74s`; Ruff reported `All checks passed!`.
+- **VERIFIED — Final automated checks:** targeted provider/UI command reported `14 passed in 2.30s`; the latest full command with external temporary directories reported `33 passed in 2.89s`; Ruff reported `All checks passed!`.
 
-## Not yet verified manually
+## Acceptance status
 
 1. **UNVERIFIED — Python 3.12 runtime:** Python 3.12 is not installed; Python 3.13.4 is available and satisfies the package's `>=3.12` runtime constraint.
 2. **VERIFIED — Real Windows Credential Manager create, replace, retrieve, and delete operations:** completed with temporary values and restoration of the existing credential without printing it.
