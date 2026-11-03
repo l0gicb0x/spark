@@ -4,11 +4,13 @@ SPARK is a text-first Windows desktop assistant foundation. Phase 1 provides a Q
 
 ## Phase 1 status
 
-The Phase 1 implementation is committed locally as `f318bae` (`Build SPARK Phase 1 desktop foundation`). **VERIFIED:** the final test run reported `32 passed in 10.81s`; Ruff reported `All checks passed!`. The available interpreter in the implementation environment was Python 3.13.4, so Python 3.12 runtime verification remains outstanding.
+The Phase 1 implementation is committed locally as `f318bae` (`Build SPARK Phase 1 desktop foundation`). A follow-up provider classification fix, regression test, and documentation update are currently uncommitted. **VERIFIED:** the latest test run after the provider classification fix reported `32 passed in 2.48s`; Ruff reported `All checks passed!`. The available interpreter in the implementation environment was Python 3.13.4, so Python 3.12 runtime verification remains outstanding.
 
 **VERIFIED:** the app window started on Windows and displayed the first-run welcome. The `/status` command displayed the version, local data paths, key status and model status. One live Gemini request returned HTTP 400 `INVALID_ARGUMENT` with “unexpected model name format”; the model name should be checked in Settings. The request log contained no API-key text.
 
-**Still to verify manually:** full create/replace/delete behavior with the real Windows Credential Manager; successful Gemini test using a currently supported model; invalid-key and offline outcomes against the service; actual tray menu Show/Settings/Quit behavior; second-process window activation; corrupt-settings recovery notice in the running app; and a clean app shutdown. Automated tests cover mocked provider outcomes, settings recovery, keyring operations with a mock, Qt shell behaviors, and single-instance socket detection.
+**Still to verify manually:** full create/replace/delete behavior with the real Windows Credential Manager; successful Gemini test using a currently supported model; invalid-key and offline outcomes against the service; actual tray menu Show/Settings/Quit behavior; second-process window activation; visible corrupt-settings recovery dialog; and a clean app shutdown. Automated tests cover mocked provider outcomes, settings recovery, keyring operations with a mock, Qt shell behaviors, and single-instance socket detection.
+
+The latest progress evidence, including the provider fix and exact verification state, is maintained in [How Much Is Done/README.md](How%20Much%20Is%20Done/README.md).
 
 See the [How Much Is Done folder](How%20Much%20Is%20Done/README.md) for the detailed completion state and manual checklist. The full approved prompt is in the [Project Prompt folder](Project%20Prompt/PROJECT_SPARK_PHASE_1_PROMPT.md).
 
