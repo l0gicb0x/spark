@@ -52,9 +52,34 @@ I’m not assigning a percentage: the remaining items are acceptance checks that
 
 ## Manual checklist to finish Phase 1 verification
 
-1. On a visible desktop, start SPARK, inspect its tray menu, close the window with a key configured, show it again from the tray, and quit from the tray.
-2. On a visible desktop, start SPARK a second time while the first is open; confirm the first window is visibly raised and no second window remains.
-3. On a visible desktop, launch against a disposable corrupt settings file and confirm the recovery dialog is visibly rendered. The file backup/default behavior is already verified.
+1. Open PowerShell on the visible desktop and run:
+
+   ```powershell
+   Set-Location C:\Programs\spark
+   Remove-Item Env:QT_QPA_PLATFORM -ErrorAction SilentlyContinue
+   .\.venv312\Scripts\python.exe -m spark
+   ```
+
+   Confirm the SPARK window and tray icon are visible. Open the tray menu and activate **Show** and **Settings**. Close the window; with the configured key present it should hide to the tray. Activate **Show** again, then use **Quit** and confirm the process exits.
+2. Start SPARK again with the command above. Minimize the first window, then run the same command from a second PowerShell window. Confirm the second process exits without opening a second window and the first SPARK window is visibly raised/activated.
+3. Close SPARK through the tray. Back up the settings file and create a disposable invalid file:
+
+   ```powershell
+   $sp = Join-Path $env:LOCALAPPDATA 'SPARK'
+   $settings = Join-Path $sp 'settings.json'
+   $backup = Join-Path $sp 'settings.json.phase1-backup'
+   Copy-Item $settings $backup -Force
+   [System.IO.File]::WriteAllText($settings, '{', [System.Text.UTF8Encoding]::new($false))
+   .\.venv312\Scripts\python.exe -m spark
+   ```
+
+   Confirm the visible recovery dialog says the file was backed up as `settings.json.bad` and defaults were restored. Quit SPARK, then restore the original file:
+
+   ```powershell
+   Remove-Item $settings -Force
+   Move-Item $backup $settings -Force
+   Remove-Item (Join-Path $sp 'settings.json.bad') -Force -ErrorAction SilentlyContinue
+   ```
 
 ## Run the interface
 
