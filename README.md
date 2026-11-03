@@ -4,11 +4,11 @@ SPARK is a text-first Windows desktop assistant foundation. Phase 1 provides a Q
 
 ## Phase 1 status
 
-The Phase 1 implementation and follow-up hardening are committed and pushed to GitHub. **VERIFIED:** Python 3.12.10 ran the full suite with `33 passed in 6.87s`; Ruff reported `All checks passed!`. Three visible-desktop acceptance checks remain documented in [How Much Is Done/README.md](How%20Much%20Is%20Done/README.md).
+The Phase 1 implementation and follow-up hardening are committed and pushed to GitHub. **VERIFIED:** Python 3.12.10 ran the full suite with `33 passed in 6.87s`; Ruff reported `All checks passed!`. All Phase 1 acceptance checks are complete.
 
 **VERIFIED:** the app window started on Windows and displayed the first-run welcome. The `/status` command displayed the version, local data paths, key status and model status. A current supported model returned a successful Gemini connection test, and the request log contained no API-key text.
 
-**Still to verify on a visible desktop:** rendered tray/menu interaction, visible second-process window activation, and the rendered corrupt-settings recovery dialog. Credential Manager CRUD, secret-file absence, live Gemini success, invalid-key/offline provider outcomes, settings recovery behavior, and clean shutdown have been exercised and recorded in [How Much Is Done/README.md](How%20Much%20Is%20Done/README.md).
+The visible tray/menu interaction, second-process activation, and corrupt-settings recovery dialog were confirmed on the Windows desktop. Credential Manager CRUD, secret-file absence, live Gemini success, invalid-key/offline provider outcomes, settings recovery behavior, and clean shutdown are recorded in [How Much Is Done/README.md](How%20Much%20Is%20Done/README.md).
 
 The latest progress evidence, including the provider fix and exact verification state, is maintained in [How Much Is Done/README.md](How%20Much%20Is%20Done/README.md).
 

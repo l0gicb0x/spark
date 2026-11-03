@@ -2,9 +2,9 @@
 
 ## Current assessment
 
-**Phase 1 implementation is complete and local/provider behavior is verified.** Three environment-dependent checks still require observation on a visible interactive desktop, so the phase remains explicitly not fully verified under the strict acceptance wording.
+**Phase 1 is fully verified and complete.** All implementation, provider, runtime, and visible-desktop acceptance checks have been completed within Phase 1.
 
-I’m not assigning a percentage: the remaining items are acceptance checks that can pass or fail independently, and a percentage would imply more precision than the evidence supports.
+All Phase 1 acceptance checks are recorded individually below rather than summarized as a percentage.
 
 ## Verified
 
@@ -39,18 +39,24 @@ I’m not assigning a percentage: the remaining items are acceptance checks that
 - **VERIFIED — Final automated checks:** targeted provider/UI command reported `14 passed in 2.30s`; the latest full command with external temporary directories reported `33 passed in 2.89s`; Ruff reported `All checks passed!`.
 - **VERIFIED — Python 3.12 checks:** `.venv312\Scripts\python.exe -m pytest -q` reported `33 passed in 6.87s`; `.venv312\Scripts\ruff.exe check .` reported `All checks passed!`.
 
+## Verification update — 2026-11-04 desktop acceptance
+
+- **VERIFIED — Visible tray interaction:** user-confirmed tray icon visibility, Show, Settings, Quit, close-to-tray behavior, restore behavior, and clean exit.
+- **VERIFIED — Visible second-instance activation:** user-confirmed that starting a second SPARK process opens no second window, exits the second process, and raises/activates the existing window.
+- **VERIFIED — Visible settings recovery:** user-confirmed the corrupt-settings recovery dialog appeared, identified `settings.json.bad`, and restored defaults; the original settings file was restored afterward.
+
 ## Acceptance status
 
 1. **VERIFIED — Python 3.12 runtime:** Python `3.12.10` passed all 33 tests and Ruff checks in `.venv312`.
 2. **VERIFIED — Real Windows Credential Manager create, replace, retrieve, and delete operations:** completed with temporary values and restoration of the existing credential without printing it.
 3. **VERIFIED — Gemini success with a currently supported configured model:** `gemini-3.5-flash-lite` succeeded and is saved in settings.
 4. **VERIFIED — Live invalid-key and offline outcomes:** dummy invalid key and unreachable local proxy checks returned distinct messages.
-5. **PARTIALLY VERIFIED — Visible tray icon and actual Show/Settings/Quit interaction:** callbacks, generated icons, close-to-tray logic, and clean shutdown are verified; rendered interaction needs a visible desktop.
-6. **PARTIALLY VERIFIED — A second real process visibly activating/raising the first window:** the second process exited `0` and the first survived; visual activation needs a visible desktop.
-7. **PARTIALLY VERIFIED — Visible corrupt-settings recovery notice:** startup warning emission, backup, and default persistence are verified offline; the rendered dialog needs a visible desktop.
+5. **VERIFIED — Visible tray icon and actual Show/Settings/Quit interaction:** user-confirmed on the Windows desktop.
+6. **VERIFIED — A second real process visibly activating/raising the first window:** user-confirmed on the Windows desktop.
+7. **VERIFIED — Visible corrupt-settings recovery notice:** user-confirmed on the Windows desktop, including backup and restoration.
 8. **VERIFIED — Secret absence after real credential checks:** the restored key was absent from actual settings and log files.
 
-## Manual checklist to finish Phase 1 verification
+## Completed desktop verification steps
 
 1. Open PowerShell on the visible desktop and run:
 
