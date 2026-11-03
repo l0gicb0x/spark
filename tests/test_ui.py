@@ -7,6 +7,7 @@ from PySide6.QtWidgets import QApplication, QDialog
 from spark.core.settings import Settings
 from spark.ui.main_window import MainWindow
 from spark.ui.settings_dialog import SettingsDialog
+from spark.ui.tray import Tray
 
 
 def test_second_instance_detected(qtbot, monkeypatch):
@@ -96,6 +97,27 @@ def test_settings_dialog_opens(qtbot, tmp_path, monkeypatch):
     window.open_settings()
     assert len(opened) == 1
     assert was_visible == [True]
+
+
+def test_tray_actions_show_settings_and_quit(qtbot):
+    window = Mock()
+    open_settings = Mock()
+    quit_app = Mock()
+    tray = Tray(window, open_settings, quit_app, QApplication.instance())
+    qtbot.addWidget(tray.contextMenu())
+
+    actions = {action.text(): action for action in tray.contextMenu().actions() if action.text()}
+    actions["Show"].trigger()
+    actions["Settings"].trigger()
+    actions["Quit"].trigger()
+
+    window.showNormal.assert_called_once_with()
+    window.raise_.assert_called_once_with()
+    window.activateWindow.assert_called_once_with()
+    open_settings.assert_called_once_with()
+    quit_app.assert_called_once_with()
+    tray.hide()
+    tray.deleteLater()
 
 
 def test_close_hides_when_key_configured(qtbot, monkeypatch, tmp_path):

@@ -24,6 +24,8 @@ def classify_exception(exc: Exception) -> str:
             return "Google rejected the API key. Check it in Settings."
         if code == 429:
             return "Gemini reported a quota or rate limit. Check your Google AI Studio account."
+        if code in (408, 500, 502, 503, 504):
+            return "Gemini is temporarily unavailable. Try again later."
         if code == 404 or (
             "model" in message
             and any(

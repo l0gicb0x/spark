@@ -19,11 +19,15 @@ class Tray(QSystemTrayIcon):
     def __init__(self, window, open_settings, quit_app, parent=None):
         super().__init__(make_icon(), parent)
         self.setToolTip("SPARK")
+
+        def show_window():
+            window.showNormal()
+            window.raise_()
+            window.activateWindow()
+
         menu = QMenu()
         show = QAction("Show", menu)
-        show.triggered.connect(
-            lambda: (window.showNormal(), window.raise_(), window.activateWindow())
-        )
+        show.triggered.connect(show_window)
         settings = QAction("Settings", menu)
         settings.triggered.connect(open_settings)
         quit_action = QAction("Quit", menu)
@@ -33,9 +37,13 @@ class Tray(QSystemTrayIcon):
         menu.addSeparator()
         menu.addAction(quit_action)
         self.setContextMenu(menu)
-        self.activated.connect(
-            lambda reason: (
-                window.showNormal() if reason == QSystemTrayIcon.ActivationReason.Trigger else None
-            )
-        )
+
+        def tray_activated(reason):
+            if reason in (
+                QSystemTrayIcon.ActivationReason.Trigger,
+                QSystemTrayIcon.ActivationReason.DoubleClick,
+            ):
+                show_window()
+
+        self.activated.connect(tray_activated)
         self.show()

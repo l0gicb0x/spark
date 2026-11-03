@@ -31,6 +31,9 @@ def test_sdk_error_mapping():
         ).lower()
     )
     assert "quota" in classify_exception(errors.APIError(429, {"message": "limited"})).lower()
+    assert "temporarily unavailable" in classify_exception(
+        errors.APIError(503, {"message": "high demand"})
+    ).lower()
     assert (
         "not found"
         in classify_exception(errors.APIError(404, {"message": "model not found"})).lower()
