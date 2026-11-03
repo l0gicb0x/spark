@@ -3,6 +3,7 @@
 ## Unreleased
 
 - Corrected Gemini invalid-key classification for the common HTTP 400 `API key not valid` response and added regression coverage.
+- Added transient Gemini service-outage classification and complete tray activation callback coverage.
 
 ## 0.1.0 - Phase 1
 
