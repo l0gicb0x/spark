@@ -12,12 +12,15 @@ def classify_exception(exc: Exception) -> str:
     if isinstance(exc, errors.APIError):
         code = getattr(exc, "code", None)
         message = str(exc).lower()
-        if code == 401 or code == 403:
+        if code in (400, 401, 403):
             if "region" in message or "location" in message or "not available" in message:
                 return (
                     "Gemini is unavailable in this region or for this account. "
                     "Check Google's current availability."
                 )
+            if any(marker in message for marker in ("api key", "api_key", "apikey")):
+                return "Google rejected the API key. Check it in Settings."
+        if code == 401 or code == 403:
             return "Google rejected the API key. Check it in Settings."
         if code == 429:
             return "Gemini reported a quota or rate limit. Check your Google AI Studio account."

@@ -24,6 +24,12 @@ def test_sdk_error_mapping():
     assert (
         "rejected" in classify_exception(errors.APIError(401, {"message": "unauthorized"})).lower()
     )
+    assert (
+        "rejected"
+        in classify_exception(
+            errors.APIError(400, {"message": "API key not valid. Please pass a valid API key."})
+        ).lower()
+    )
     assert "quota" in classify_exception(errors.APIError(429, {"message": "limited"})).lower()
     assert (
         "not found"
