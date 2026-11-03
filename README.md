@@ -4,7 +4,7 @@ SPARK is a text-first Windows desktop assistant foundation. Phase 1 provides a Q
 
 ## Phase 1 status
 
-The Phase 1 implementation and follow-up hardening are committed and pushed to GitHub. **VERIFIED:** the latest full test run reported `33 passed in 2.89s`; Ruff reported `All checks passed!`. The available interpreter is Python 3.13.4, so exact Python 3.12 runtime verification remains outstanding.
+The Phase 1 implementation and follow-up hardening are committed and pushed to GitHub. **VERIFIED:** Python 3.12.10 ran the full suite with `33 passed in 6.87s`; Ruff reported `All checks passed!`. Three visible-desktop acceptance checks remain documented in [How Much Is Done/README.md](How%20Much%20Is%20Done/README.md).
 
 **VERIFIED:** the app window started on Windows and displayed the first-run welcome. The `/status` command displayed the version, local data paths, key status and model status. A current supported model returned a successful Gemini connection test, and the request log contained no API-key text.
 

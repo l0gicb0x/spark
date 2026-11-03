@@ -2,7 +2,7 @@
 
 ## Current assessment
 
-**Phase 1 implementation is complete and local/provider behavior is verified.** A small set of environment-dependent checks still require a visible interactive desktop or Python 3.12, so the phase remains explicitly not fully verified under the strict acceptance wording.
+**Phase 1 implementation is complete and local/provider behavior is verified.** Three environment-dependent checks still require observation on a visible interactive desktop, so the phase remains explicitly not fully verified under the strict acceptance wording.
 
 I’m not assigning a percentage: the remaining items are acceptance checks that can pass or fail independently, and a percentage would imply more precision than the evidence supports.
 
@@ -24,7 +24,7 @@ I’m not assigning a percentage: the remaining items are acceptance checks that
 - **VERIFIED — Runtime process check:** starting `python -m spark` in an isolated `%LOCALAPPDATA%` folder and starting it a second time resulted in the second process exiting with code `0` while the first remained alive. The first window being visibly raised was not observable in this non-interactive session.
 - **VERIFIED — Qt shell inspection:** offscreen inspection found the `Show`, `Settings`, and `Quit` tray actions and non-null generated window/tray icons. This does not replace a visible tray test.
 - **VERIFIED — Settings recovery in app startup:** an actual offline `spark.app.run()` lifecycle against an isolated invalid `settings.json` returned exit code `0`, emitted the recovery warning, created `settings.json.bad`, and persisted default settings. The warning was captured rather than visibly displayed, so the visible dialog remains unverified.
-- **VERIFIED — Installed runtime/backend:** the available interpreter is Python `3.13.4`, and the installed keyring backend is `WinVaultKeyring`.
+- **VERIFIED — Installed runtime/backend:** Python `3.12.10` passed the full suite in `.venv312`; the installed keyring backend is `WinVaultKeyring`.
 
 ## Verification update — 2026-11-04
 
@@ -37,10 +37,11 @@ I’m not assigning a percentage: the remaining items are acceptance checks that
 - **VERIFIED — Tray action behavior:** Qt regression coverage now triggers Show, Settings, and Quit actions and verifies their callbacks; tray activation now raises and activates the window for both single-click and double-click activation reasons.
 - **VERIFIED — Clean shutdown path:** an actual offline `spark.app.run()` lifecycle exited with code `0` after invoking the application quit callback and wrote `SPARK shutting down` to the log.
 - **VERIFIED — Final automated checks:** targeted provider/UI command reported `14 passed in 2.30s`; the latest full command with external temporary directories reported `33 passed in 2.89s`; Ruff reported `All checks passed!`.
+- **VERIFIED — Python 3.12 checks:** `.venv312\Scripts\python.exe -m pytest -q` reported `33 passed in 6.87s`; `.venv312\Scripts\ruff.exe check .` reported `All checks passed!`.
 
 ## Acceptance status
 
-1. **UNVERIFIED — Python 3.12 runtime:** Python 3.12 is not installed; Python 3.13.4 is available and satisfies the package's `>=3.12` runtime constraint.
+1. **VERIFIED — Python 3.12 runtime:** Python `3.12.10` passed all 33 tests and Ruff checks in `.venv312`.
 2. **VERIFIED — Real Windows Credential Manager create, replace, retrieve, and delete operations:** completed with temporary values and restoration of the existing credential without printing it.
 3. **VERIFIED — Gemini success with a currently supported configured model:** `gemini-3.5-flash-lite` succeeded and is saved in settings.
 4. **VERIFIED — Live invalid-key and offline outcomes:** dummy invalid key and unreachable local proxy checks returned distinct messages.
@@ -51,10 +52,9 @@ I’m not assigning a percentage: the remaining items are acceptance checks that
 
 ## Manual checklist to finish Phase 1 verification
 
-1. Install/use Python 3.12 (64-bit), create the virtual environment using the README setup commands, and run the full test suite. This remains unavailable in the current environment.
-2. On a visible desktop, start SPARK, inspect its tray menu, close the window with a key configured, show it again from the tray, and quit from the tray.
-3. On a visible desktop, start SPARK a second time while the first is open; confirm the first window is visibly raised and no second window remains.
-4. On a visible desktop, launch against a disposable corrupt settings file and confirm the recovery dialog is visibly rendered. The file backup/default behavior is already verified.
+1. On a visible desktop, start SPARK, inspect its tray menu, close the window with a key configured, show it again from the tray, and quit from the tray.
+2. On a visible desktop, start SPARK a second time while the first is open; confirm the first window is visibly raised and no second window remains.
+3. On a visible desktop, launch against a disposable corrupt settings file and confirm the recovery dialog is visibly rendered. The file backup/default behavior is already verified.
 
 ## Run the interface
 
